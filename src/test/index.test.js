@@ -3,29 +3,19 @@ import Character, {
 } from '../index';
 
 test('name lenght', () => {
-  expect(() => new Character('Q', 'Bowman')).toThrowError('Имя должно быть от 2 до 10 символов');
-  expect(() => new Character('VeryLongName', 'Bowman')).toThrowError('Имя должно быть от 2 до 10 символов');
+  expect(() => new Character('Q', 'Bowman', 20, 20)).toThrowError('Имя должно быть от 2 до 10 символов');
+  expect(() => new Character('VeryLongName', 'Bowman', 20, 20)).toThrowError('Имя должно быть от 2 до 10 символов');
 });
 
 test('unknown character', () => {
-  expect(() => new Character('Legolaz', 'Plotnik')).toThrowError('Неизвестный персонаж');
+  expect(() => new Character('Legolaz', 'Plotnik', 20, 20)).toThrowError('Неизвестный персонаж');
 });
 
-test.each([
-  ['Bowman', 25, 25],
-  ['Swordsman', 40, 10],
-  ['Magician', 10, 40],
-  ['Undead', 25, 25],
-  ['Zombie', 40, 10],
-  ['Daemon', 10, 40],
-])(
-  ('check skills for %s'),
-  (heroClass, attack, defence) => {
-    const hero = new Character('name', heroClass);
-    expect(hero.attack).toBe(attack);
-    expect(hero.defence).toBe(defence);
-  },
-);
+test('check skills', () => {
+  const hero = new Character('name', 'Bowman', 100, 200);
+  expect(hero.attack).toBe(100);
+  expect(hero.defence).toBe(200);
+});
 
 test('check class Bowman', () => {
   const result = new Bowman('name');
